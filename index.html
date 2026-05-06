@@ -1,1 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sriya's Glow Calculator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.35), transparent 24%),
+        radial-gradient(circle at 85% 20%, rgba(255, 195, 226, 0.55), transparent 28%),
+        radial-gradient(circle at 50% 90%, rgba(177, 156, 217, 0.45), transparent 35%),
+        linear-gradient(135deg, #ff5f9e, #c77dff, #7b2cbf);
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    .sparkle {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 2px),
+        radial-gradient(circle, rgba(255,255,255,0.55) 1px, transparent 2px);
+      background-size: 70px 70px, 110px 110px;
+      animation: floatSparkle 12s linear infinite;
+      opacity: 0.55;
+    }
+
+    @keyframes floatSparkle {
+      from { transform: translateY(0); }
+      to { transform: translateY(-80px); }
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      font-size: 52px;
+      margin-bottom: 12px;
+      text-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    header p {
+      max-width: 760px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #fff7fc;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1180px;
+      margin: 25px auto 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      backdrop-filter: blur(16px);
+      border-radius: 26px;
+      padding: 28px;
+      box-shadow: 0 18px 45px rgba(74, 20, 140, 0.28);
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 55px rgba(74, 20, 140, 0.38);
+    }
+
+    .emoji {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .card h2 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: #fff3fb;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 7px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 13px 14px;
+      border: none;
+      outline: none;
+      border-radius: 15px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.94);
+      color: #3d174d;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border: none;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #ffffff, #ffd6ea);
+      color: #7b2cbf;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+      background: linear-gradient(135deg, #ffe0f0, #ffffff);
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(74, 20, 140, 0.35);
+      font-size: 16px;
+      line-height: 1.5;
+      min-height: 58px;
+    }
+
+    .highlight {
+      font-size: 21px;
+      font-weight: bold;
+      color: #ffe0f0;
+    }
+
+    .note {
+      width: 92%;
+      max-width: 1050px;
+      margin: 0 auto 50px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 22px;
+      padding: 23px;
+      text-align: center;
+      color: #fff7fc;
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 26px;
+      background: rgba(60, 10, 90, 0.35);
+      color: #fff7fc;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 620px) {
+      header h1 {
+        font-size: 36px;
+      }
+
+      header p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkle"></div>
+
+  <header>
+    <h1>Sriya's Glow Calculator</h1>
+    <p>
+      A cute and helpful lifestyle calculator website for wellness, beauty budgeting,
+      water intake, and simple cycle date estimation.
+    </p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div class="emoji">🌸</div>
+      <h2>Period Date Estimator</h2>
+      <p>Estimate the next period date using the last period date and average cycle length.</p>
+
+      <label for="lastPeriod">Last Period Start Date</label>
+      <input type="date" id="lastPeriod" />
+
+      <label for="cycleLength">Average Cycle Length</label>
+      <input type="number" id="cycleLength" placeholder="Example: 28" />
+
+      <button onclick="calculatePeriod()">Estimate Date</button>
+      <div class="result" id="periodResult">Your estimated date will appear here.</div>
+    </section>
+
+    <section class="card">
+      <div class="emoji">💧</div>
+      <h2>Water Glow Calculator</h2>
+      <p>Estimate daily water intake based on body weight.</p>
+
+      <label for="waterWeight">Weight (kg)</label>
+      <input type="number" id="waterWeight" placeholder="Example: 55" />
+
+      <button onclick="calculateWater()">Calculate Water Intake</button>
+      <div class="result" id="waterResult">Your water intake result will appear here.</div>
+    </section>
+
+    <section class="card">
+      <div class="emoji">🧴</div>
+      <h2>Skincare Budget Calculator</h2>
+      <p>Calculate monthly skincare cost based on product prices.</p>
+
+      <label for="cleanser">Cleanser Cost ($)</label>
+      <input type="number" id="cleanser" placeholder="Example: 12" />
+
+      <label for="moisturizer">Moisturizer Cost ($)</label>
+      <input type="number" id="moisturizer" placeholder="Example: 15" />
+
+      <label for="sunscreen">Sunscreen Cost ($)</label>
+      <input type="number" id="sunscreen" placeholder="Example: 10" />
+
+      <label for="extras">Extra Products ($)</label>
+      <input type="number" id="extras" placeholder="Example: 20" />
+
+      <button onclick="calculateSkincare()">Calculate Budget</button>
+      <div class="result" id="skincareResult">Your skincare budget will appear here.</div>
+    </section>
+
+    <section class="card">
+      <div class="emoji">💄</div>
+      <h2>Makeup Expense Calculator</h2>
+      <p>Estimate makeup spending for daily, monthly, or special occasion products.</p>
+
+      <label for="foundation">Foundation / Base ($)</label>
+      <input type="number" id="foundation" placeholder="Example: 18" />
+
+      <label for="lipstick">Lipstick / Lip Product ($)</label>
+      <input type="number" id="lipstick" placeholder="Example: 8" />
+
+      <label for="eyeMakeup">Eye Makeup ($)</label>
+      <input type="number" id="eyeMakeup" placeholder="Example: 15" />
+
+      <label for="makeupExtra">Other Makeup Items ($)</label>
+      <input type="number" id="makeupExtra" placeholder="Example: 12" />
+
+      <button onclick="calculateMakeup()">Calculate Makeup Cost</button>
+      <div class="result" id="makeupResult">Your makeup cost will appear here.</div>
+    </section>
+  </main>
+
+  <div class="note">
+    <strong>Important Note:</strong> This website is for learning and general lifestyle estimation only.
+    The period estimator is not medical advice and may not be accurate for everyone. For health concerns,
+    always speak with a healthcare professional.
+  </div>
+
+  <footer>
+    <p>© 2026 Sriya's Glow Calculator | Created with GitHub Pages</p>
+  </footer>
+
+  <script>
+    function calculatePeriod() {
+      const lastPeriod = document.getElementById('lastPeriod').value;
+      const cycleLength = parseInt(document.getElementById('cycleLength').value);
+      const result = document.getElementById('periodResult');
+
+      if (!lastPeriod || !cycleLength || cycleLength <= 0) {
+        result.innerHTML = 'Please enter a valid date and cycle length.';
+        return;
+      }
+
+      const date = new Date(lastPeriod);
+      date.setDate(date.getDate() + cycleLength);
+
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      result.innerHTML = `Estimated next period date:<br><span class="highlight">${date.toLocaleDateString('en-US', options)}</span>`;
+    }
+
+    function calculateWater() {
+      const weight = parseFloat(document.getElementById('waterWeight').value);
+      const result = document.getElementById('waterResult');
+
+      if (!weight || weight <= 0) {
+        result.innerHTML = 'Please enter a valid weight.';
+        return;
+      }
+
+      const waterMl = weight * 35;
+      const waterLiters = waterMl / 1000;
+
+      result.innerHTML = `Estimated daily water intake:<br><span class="highlight">${waterLiters.toFixed(2)} liters</span><br>Approx: ${Math.round(waterMl)} ml`;
+    }
+
+    function calculateSkincare() {
+      const cleanser = parseFloat(document.getElementById('cleanser').value) || 0;
+      const moisturizer = parseFloat(document.getElementById('moisturizer').value) || 0;
+      const sunscreen = parseFloat(document.getElementById('sunscreen').value) || 0;
+      const extras = parseFloat(document.getElementById('extras').value) || 0;
+      const result = document.getElementById('skincareResult');
+
+      const total = cleanser + moisturizer + sunscreen + extras;
+      const yearly = total * 12;
+
+      result.innerHTML = `Monthly skincare budget:<br><span class="highlight">$${total.toFixed(2)}</span><br>Estimated yearly cost: $${yearly.toFixed(2)}`;
+    }
+
+    function calculateMakeup() {
+      const foundation = parseFloat(document.getElementById('foundation').value) || 0;
+      const lipstick = parseFloat(document.getElementById('lipstick').value) || 0;
+      const eyeMakeup = parseFloat(document.getElementById('eyeMakeup').value) || 0;
+      const makeupExtra = parseFloat(document.getElementById('makeupExtra').value) || 0;
+      const result = document.getElementById('makeupResult');
+
+      const total = foundation + lipstick + eyeMakeup + makeupExtra;
+      result.innerHTML = `Total makeup expense:<br><span class="highlight">$${total.toFixed(2)}</span>`;
+    }
+  </script>
+</body>
+</html>
 
