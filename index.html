@@ -198,28 +198,12 @@
   <header>
     <h1>Sriya's Glow Calculator</h1>
     <p>
-      A cute and helpful lifestyle calculator website for wellness, beauty budgeting,
-      water intake, and simple cycle date estimation.
+      A cute and helpful lifestyle calculator website for wellness, beauty budgeting, water intake, and makeup expense estimation.
     </p>
   </header>
 
   <main class="container">
-    <section class="card">
-      <div class="emoji">🌸</div>
-      <h2>Period Date Estimator</h2>
-      <p>Estimate the next period date using the last period date and average cycle length.</p>
-
-      <label for="lastPeriod">Last Period Start Date</label>
-      <input type="date" id="lastPeriod" />
-
-      <label for="cycleLength">Average Cycle Length</label>
-      <input type="number" id="cycleLength" placeholder="Example: 28" />
-
-      <button onclick="calculatePeriod()">Estimate Date</button>
-      <div class="result" id="periodResult">Your estimated date will appear here.</div>
-    </section>
-
-    <section class="card">
+<section class="card">
       <div class="emoji">💧</div>
       <h2>Water Glow Calculator</h2>
       <p>Estimate daily water intake based on body weight.</p>
@@ -275,9 +259,7 @@
   </main>
 
   <div class="note">
-    <strong>Important Note:</strong> This website is for learning and general lifestyle estimation only.
-    The period estimator is not medical advice and may not be accurate for everyone. For health concerns,
-    always speak with a healthcare professional.
+    <strong>Important Note:</strong> This website is for learning and general lifestyle estimation only. For health concerns, always speak with a h
   </div>
 
   <footer>
@@ -285,23 +267,6 @@
   </footer>
 
   <script>
-    function calculatePeriod() {
-      const lastPeriod = document.getElementById('lastPeriod').value;
-      const cycleLength = parseInt(document.getElementById('cycleLength').value);
-      const result = document.getElementById('periodResult');
-
-      if (!lastPeriod || !cycleLength || cycleLength <= 0) {
-        result.innerHTML = 'Please enter a valid date and cycle length.';
-        return;
-      }
-
-      const date = new Date(lastPeriod);
-      date.setDate(date.getDate() + cycleLength);
-
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      result.innerHTML = `Estimated next period date:<br><span class="highlight">${date.toLocaleDateString('en-US', options)}</span>`;
-    }
-
     function calculateWater() {
       const weight = parseFloat(document.getElementById('waterWeight').value);
       const result = document.getElementById('waterResult');
@@ -343,4 +308,3 @@
   </script>
 </body>
 </html>
-
